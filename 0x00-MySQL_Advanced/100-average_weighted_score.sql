@@ -4,7 +4,7 @@ DROP PROCEDURE IF EXISTS ComputeAverageScoreForUser;
 DELIMITER $$
 CREATE PROCEDURE ComputeAverageScoreForUser(IN user_id INT)
 BEGIN
-	DECLARE avg_score FLOAT
+	DECLARE avg_score FLOAT;
 	SET avg_score = (SELECT SUM(weight * score) / SUM(weight)
 				    FROM users
 				    JOIN corrections AS cor ON users.id = cor.user_id

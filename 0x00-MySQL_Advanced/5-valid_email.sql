@@ -7,7 +7,7 @@ FOR EACH ROW
 BEGIN
 IF OLD.email <> NEW.email
 THEN
-   NEW.valid_email = 0;
+   SET NEW.valid_email = 0;
 END IF;
 END$$
 DELIMITER;

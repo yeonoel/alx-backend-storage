@@ -3,4 +3,4 @@
 CREATE TRIGGER `reset_attribut`
 AFTER UPDATE users ON users.email
 FOR EACH ROW
-UPDATE SET valid_email = 0;
+UPDATE users SET valid_email = 0;

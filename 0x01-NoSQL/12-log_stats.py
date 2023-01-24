@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""  Log stats. """
+""" MongoDB Operations with Python using pymongo """
 from pymongo import MongoClient
 
 if __name__ == "__main__":
@@ -7,8 +7,8 @@ if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')
     nginx_collection = client.logs.nginx
 
-    num_docs = nginx_collection.count_documents({})
-    print(f'{num_docs} logs')
+    n_logs = nginx_collection.count_documents({})
+    print(f'{n_logs} logs')
 
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     print('Methods:')

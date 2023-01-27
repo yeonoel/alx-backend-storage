@@ -37,6 +37,7 @@ def call_history(method: Callable) -> Callable:
 
     return wrapper
 
+
 def replay(method: Callable) -> None:
     # sourcery skip: use-fstring-for-concatenation, use-fstring-for-formatting
     """
@@ -54,6 +55,8 @@ def replay(method: Callable) -> None:
     outputs = cache.lrange(name + ":outputs", 0, -1)
     for i, o in zip(inputs, outputs):
         print("{}(*{}) -> {}".format(name, i.decode('utf-8'),
+                                     o.decode('utf-8')))
+
 
 class Cache:
     """Cache class"""
@@ -69,7 +72,7 @@ class Cache:
 
         return randomKey
 
-def get(self, key: str,
+    def get(self, key: str,
             fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
             """Get data from the cache"""
             value = self._redis.get(key)

@@ -71,7 +71,6 @@ class Cache:
         """Store data in the cache"""
         randomKey = str(uuid.uuid4())
         self._redis.set(randomKey, data)
-
         return randomKey
 
     def get(self, key: str,
@@ -91,7 +90,7 @@ class Cache:
         """Get an int from the cache"""
         value = self._redis.get(key)
         try:
-            value =int(value.decode('utf-8'))
+            value = int(value.decode('utf-8'))
         except Exception:
             value = 0
         return value

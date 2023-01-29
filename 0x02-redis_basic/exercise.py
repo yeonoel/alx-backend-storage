@@ -74,7 +74,8 @@ class Cache:
         return randomKey
 
     def get(self, key: str,
-        fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+        fn: Optional[Callable] = None
+        ) -> Union[str, bytes, int, float]:
         """Get data from the cache"""
         value = self._redis.get(key)
         if fn:

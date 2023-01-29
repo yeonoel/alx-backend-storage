@@ -18,8 +18,8 @@ def count_requests(method: Callable) -> Callable:
         cached_html = redis_.get(f"cached:{url}")
         if cached_html:
             return cached_html.decode('utf-8')
-        html = method(url)
-        redis_.setex(f"cached:{url}", 10, html)
+        html = method(*args, **kwargs) 
+        redis_.set(f"cached:{url}", html, ex=10)
         return html
 
     return wrapper
@@ -28,5 +28,4 @@ def count_requests(method: Callable) -> Callable:
 @count_requests
 def get_page(url: str) -> str:
     """ Obtain the HTML content of a  URL """
-    req = requests.get(url)
-    return req.text
+    return requests.get(url).text

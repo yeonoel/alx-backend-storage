@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
-""" Redis Module """
+""" Implementing an expiring web cache and tracker. """
 
 from functools import wraps
 import redis
 import requests
 from typing import Callable
 
-redis_ = redis.Redis()
+r = redis.Redis()
 
 
 def count_requests(method: Callable) -> Callable:
     """ Decorator for counting """
     @wraps(method)
-    def wrapper(url):  # sourcery skip: use-named-expression
+    def wrapper(url):
         """ Wrapper for decorator """
-        redis_.incr(f"count:{url}")
-        cached_html = redis_.get(f"cached:{url}")
+        r.incr(f"count:{url}")
+        cached_html = r.get(f"cached:{url}")
         if cached_html:
             return cached_html.decode('utf-8')
         html = method(*args, **kwargs)
-        redis_.set(f"cached:{url}", html, ex=10)
+        r.set(f"cached:{url}", html, ex=10)
         return html
 
     return wrapper

@@ -60,13 +60,13 @@ def replay(method: Callable) -> None:
 
 class Cache:
     """Cache class"""
-    def __init__(self): 
+    def __init__(self):
         """initializes the Cache class."""
         self._redis = redis.Redis()
         self._redis.flushdb()
 
     @call_history
-    @count_calls 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """Store data in the cache"""
         randomKey = str(uuid.uuid4())
@@ -74,12 +74,12 @@ class Cache:
         return randomKey
 
     def get(self, key: str,
-            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
-            """Get data from the cache"""
-            value = self._redis.get(key)
-            if fn:
-                value = fn(value)
-            return value
+        fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+        """Get data from the cache"""
+        value = self._redis.get(key)
+        if fn:
+            value = fn(value)
+        return value
 
     def get_str(self, key: str) -> str:
         """Get a string from the cache"""

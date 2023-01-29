@@ -18,7 +18,7 @@ def count_requests(method: Callable) -> Callable:
         cached_html = redis_.get(f"cached:{url}")
         if cached_html:
             return cached_html.decode('utf-8')
-        html = method(*args, **kwargs) 
+        html = method(*args, **kwargs)
         redis_.set(f"cached:{url}", html, ex=10)
         return html
 

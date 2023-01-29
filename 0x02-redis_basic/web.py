@@ -19,7 +19,7 @@ def count_requests(method: Callable) -> Callable:
         if cached_html:
             return cached_html.decode('utf-8')
         html = method(*args, **kwargs)
-        r.set(f"cached:{url}", html, ex=10)
+        r.set(f"cached:{url}", html, 10)
         return html
 
     return wrapper
